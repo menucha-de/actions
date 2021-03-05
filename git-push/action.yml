@@ -1,0 +1,44 @@
+name: 'Add unstaged changes, commit and push local git repository'
+description: 'Stage files matching configured pathspec, commit to local repository and push changes to the configured remote.'
+inputs:
+  working-directory:
+    description: 'Working directory, defaults to current workspace'
+    default: '.'
+  user-email:
+    description: 'User email to use for comitting, defaults to GitHub Action user'
+    default: 'action@github.com'
+  user-name:
+    description: 'User name to use for comitting, defaults to GitHub Action user'
+    default: 'GitHub Action'
+  pathspec:
+    description: 'Pathspec to use for git add, defaults to .'
+    default: '.'
+  commit-message:
+    description: 'Commit message, default to a message containing commit hash and workflow name'
+    default: 'Commit by $GITHUB_REPOSITORY@$GITHUB_SHA $GITHUB_WORKFLOW workflow'
+  remote:
+    description: 'Configured remote to push changes to, defaults to origin'
+    default: 'origin'
+  branch:
+    description: 'Name of the branch to push to'
+    default: 'main'
+  arguments:
+    description: 'Arguments passed to git push, e.g. -u --force to push with cleared history, by default no additonal arguments are passed'
+    default: ''
+
+runs:
+  using: "composite"
+  steps: 
+    - run: |
+           set -x
+           set +e
+           git config --local user.email "${{ inputs.user-email }}"
+           git config --local user.name "${{ inputs.user-name }}"
+           git add ${{ inputs.pathspec }}
+           git commit -m "${{ inputs.commit-message }}"
+           git push ${{ inputs.arguments }} ${{ inputs.remote }} ${{ inputs.branch }}
+      working-directory: ${{ inputs.working-directory }}
+      shell: bash
+branding:
+  icon: upload
+  color: black

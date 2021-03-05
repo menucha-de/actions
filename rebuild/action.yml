@@ -1,0 +1,26 @@
+name: 'Rebuild debian packages list and repo clearing'
+description: 'Rebuilds the debian packages list and clears the repo on buster-slim'
+inputs:
+  arch:
+    description: 'Architecture'
+    default: 'amd64 armhf'
+  dist:
+    description: 'Distribution'
+    default: 'buster buster-staging'
+  token:
+    description: 'Token'
+    required: true
+  name:
+    description: 'Name'
+    default: 'Support'
+  email:
+    description: 'Email'
+    default: 'Support@peraMIC.io'
+
+runs:
+  using: docker
+  image: docker://ghcr.io/peramic/rebuild:latest
+
+branding:
+  icon: package
+  color: black

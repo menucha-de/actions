@@ -1,0 +1,37 @@
+name: 'Reset local git repository'
+description: 'Reset local git repository to an empty repository with all files intact, but unstaged.'
+inputs:
+  working-directory:
+    description: 'Working directory, defaults to current workspace'
+    default: '.'
+  user-email:
+    description: 'User email to use for comitting, defaults to GitHub Action user'
+    default: 'action@github.com'
+  user-name:
+    description: 'User name to use for comitting, defaults to GitHub Action user'
+    default: 'GitHub Action'
+  repository:
+    description: 'Name of repository to reset, without .git, defaults to current folder name'
+    default: '${PWD##*/}'
+  branch:
+    description: 'Name of the branch to reset'
+    default: 'main'
+
+runs:
+  using: "composite"
+  steps: 
+    - run: |
+           set -x
+           awk  '{ if ($0 ~ /\[remote.*\]/ || $0 ~ /\[branch.*\]/) { output="off"; next }; if ($0 ~ /\[.*\]/) { output="on"; print; next }; if (output == "on") { print } }' .git/config > .gitconfig
+           rm -rf .git/*
+           mv .gitconfig .git/config
+           git config --global user.email "${{ inputs.user-email }}"
+           git config --global user.name "${{ inputs.user-name }}"
+           git init -b ${{ inputs.branch }}
+           git remote add origin $GITHUB_SERVER_URL/$GITHUB_REPOSITORY_OWNER/${{ inputs.repository }}.git
+      working-directory: ${{ inputs.working-directory }}
+      shell: bash
+
+branding:
+  icon: rewind
+  color: black

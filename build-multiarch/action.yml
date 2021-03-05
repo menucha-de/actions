@@ -1,0 +1,90 @@
+name: 'Build debian package'
+description: 'Build a debian package on buster-slim'
+inputs:
+  arch:
+    description: 'Architecture'
+    default: 'amd64'
+  dist:
+    description: 'Distribution'
+    default: 'buster-staging'
+  script:
+    description: 'Script'
+    required: true
+  url:
+    description: 'GitHub server URL'
+    default: 'https://github.com'
+  org:
+    description: 'GitHub organisation'
+    default: 'peramic'
+  token:
+    description: 'Token'
+    required: true
+  publish:
+    description: 'Push package'
+    default: true
+  apt:
+    description: 'Local debian repostitory'
+    default: 'https://peramic.github.io/debian'
+  ivy:
+    description: 'Local ivy repostitory'
+    default: 'https://peramic.github.io/ivy'
+  resolver:
+    description: 'Ivy resolver'
+    default: 'remotefs'
+  api:
+    description: 'Local api repostitory'
+    default: 'https://peramic.github.io/api'
+  mirror:
+    description: 'Local debian mirror'
+    default: 'http://httpredir.debian.org/debian'
+  npm:
+    description: 'Local npm registry'
+    default: 'https://npm.pkg.github.com'
+  debug:
+    description: 'debug'
+    default: true
+  packaging:
+    description: 'Packaging'
+  imaging:
+    description: 'Imaging'
+  maintainer:
+    description: 'Maintainer'
+    default: 'Open Source <opensource@peraMIC.io>'
+  support:
+    description: 'Support'
+    default: 'support@peraMIC.io'
+  release:
+    description: 'Release'
+outputs:
+  package:
+    description: 'Name of the package'
+
+runs:
+  using: docker
+  image: docker://docker.io/multiarch/debian-debootstrap:armhf-buster-slim
+  entrypoint: 'bash'
+  args:
+    - -c
+    - ${{ inputs.script }}
+  env:
+    ARCH: ${{ inputs.arch }}
+    DIST: ${{ inputs.dist }}
+    URL: ${{ inputs.url }}
+    ORG: ${{ inputs.org }}
+    TOKEN: ${{ inputs.token }}
+    PUBLISH: ${{ inputs.publish }}
+    APT: ${{ inputs.apt }}
+    IVY: ${{ inputs.ivy }}
+    RESOLVER: ${{ inputs.resolver }}
+    API: ${{ inputs.api }}
+    MIRROR: ${{ inputs.mirror }}
+    NPM: ${{ inputs.npm }}
+    DEBUG: ${{ inputs.debug }}
+    PACKAGING: ${{ inputs.packaging }}
+    IMAGING: ${{ inputs.imaging }}
+    MAINTAINER: ${{ inputs.maintainer }}
+    SUPPORT: ${{ inputs.support }}
+    RELEASE: ${{ inputs.release }}
+branding:
+  icon: package
+  color: black
