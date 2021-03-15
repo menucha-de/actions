@@ -12,10 +12,10 @@ inputs:
     required: true
   name:
     description: 'Name'
-    default: 'Support'
+    default: 'GitHub Action'
   email:
     description: 'Email'
-    default: 'info@menucha.de'
+    default: 'action@github.com'
 
 runs:
   using: docker
