@@ -15,7 +15,7 @@ inputs:
     default: 'https://github.com'
   org:
     description: 'GitHub organisation'
-    default: 'peramic'
+    default: 'menucha-de'
   token:
     description: 'Token'
     required: true
@@ -24,16 +24,16 @@ inputs:
     default: true
   apt:
     description: 'Local debian repostitory'
-    default: 'https://peramic.github.io/debian'
+    default: 'https://menucha-de.github.io/debian'
   ivy:
     description: 'Local ivy repostitory'
-    default: 'https://peramic.github.io/ivy'
+    default: 'https://menucha-de.github.io/ivy'
   resolver:
     description: 'Ivy resolver'
     default: 'remotefs'
   api:
     description: 'Local api repostitory'
-    default: 'https://peramic.github.io/api'
+    default: 'https://menucha-de.github.io/api'
   mirror:
     description: 'Local debian mirror'
     default: 'http://httpredir.debian.org/debian'
@@ -49,10 +49,10 @@ inputs:
     description: 'Imaging'
   maintainer:
     description: 'Maintainer'
-    default: 'Open Source <opensource@peraMIC.io>'
+    default: 'Menucha Team <info@menucha.de>'
   support:
     description: 'Support'
-    default: 'support@peraMIC.io'
+    default: 'info@menucha.de'
   release:
     description: 'Release'
 outputs:
