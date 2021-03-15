@@ -19,7 +19,7 @@ inputs:
 
 runs:
   using: docker
-  image: docker://ghcr.io/peramic/rebuild:latest
+  image: docker://ghcr.io/menucha-de/rebuild:latest
 
 branding:
   icon: package
