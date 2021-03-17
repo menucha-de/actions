@@ -61,7 +61,7 @@ outputs:
 
 runs:
   using: docker
-  image: docker://ghcr.io/peramic/build:stretch
+  image: docker://ghcr.io/menucha-de/build:stretch
   entrypoint: 'bash'
   args:
     - -c
